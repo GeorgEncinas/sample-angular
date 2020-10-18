@@ -2,12 +2,22 @@
 
   <div *ngFor="let post of posts">
     <h1>
-      {{post.id}} {{post.author}}
+      {{post.id}} {{post.title}}
     </h1>
     <h2>
       {{post.author}}
     </h2>
   </div>
+
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <label> Titulo
+      <input type="text" formControlName="title">
+    </label>
+    <label> Author
+      <input type="text" formControlName="author">
+    </label>
+    <button type="submit"> Crear post</button>
+  </form>
 
 </div>
 

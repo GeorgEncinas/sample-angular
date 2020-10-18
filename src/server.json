@@ -1,8 +1,49 @@
 {
   "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" },
-    { "id": 2, "title": "second-json-server", "author": "georg" }
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "second-json-server",
+      "author": "georg"
+    },
+    {
+      "id": 3,
+      "title": "angular",
+      "author": "rodrigo"
+    },
+    {
+      "id": 4,
+      "title": "Reac",
+      "author": "Luis"
+    },
+    {
+      "title": "Vue",
+      "author": "Gary",
+      "id": 5
+    },
+    {
+      "title": "Vue",
+      "author": "Alfredo",
+      "id": 6
+    },
+    {
+      "title": "Next",
+      "author": "Postulante",
+      "id": 7
+    }
   ],
-  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
-  "profile": { "name": "typicode" }
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
 }
