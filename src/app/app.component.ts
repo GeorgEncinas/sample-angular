@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PostsService } from './services/posts.service';
 import { Post } from './interfaces/posts.model';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +12,11 @@ export class AppComponent {
   posts: Post[];
 
   postForm: FormGroup = new FormGroup({
-    title: new FormControl('', []),
+    title: new FormControl('', [
+      Validators.required,
+      Validators.minLength(4),
+      Validators.pattern(/\w/)
+    ]),
     author: new FormControl('', []),
   });
 
@@ -28,9 +32,27 @@ export class AppComponent {
 
   onSubmit(): void {
     const payload = this.postForm.getRawValue();
-    this.postService.createPost(payload)
-      .subscribe(respond => {
+    if (this.postForm.valid) {
+      this.postService.createPost(payload)
+        .subscribe(respond => {
+          this.readPosts();
+        });
+    } else {
+      alert('se requiere campos validos');
+    }
+  }
+  onDelete(id: number): void {
+    this.postService.deletePost(id)
+      .subscribe(response => {
         this.readPosts();
+        alert('eliminado');
+      },
+      error => {
+        if (error.status === 404 ){
+          alert('no existe el post')
+        } else {
+          alert('hubo un error al eliminar')
+        }
       });
   }
 }

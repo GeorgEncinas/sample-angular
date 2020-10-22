@@ -18,4 +18,8 @@ export class PostsService {
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(`${url}/posts`, post);
   }
+
+  deletePost(id: number): Observable<Post> {
+    return this.http.delete<Post>(`${url}/posts/${id}`);
+  }
 }

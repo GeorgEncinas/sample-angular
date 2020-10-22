@@ -1,12 +1,15 @@
 <div>
 
   <div *ngFor="let post of posts">
-    <h1>
-      {{post.id}} {{post.title}}
-    </h1>
-    <h2>
-      {{post.author}}
-    </h2>
+    <div>
+      <h1>
+        {{post.id}} {{post.title}}
+      </h1>
+      <h2>
+        {{post.author}}
+      </h2>
+      <button (click)="onDelete(post.id +1000)">Eliminar</button>
+    </div>
   </div>
 
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
@@ -16,7 +19,7 @@
     <label> Author
       <input type="text" formControlName="author">
     </label>
-    <button type="submit"> Crear post</button>
+    <button [disabled]="postForm.invalid" type="submit"> Crear post</button>
   </form>
 
 </div>
