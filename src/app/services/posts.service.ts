@@ -11,8 +11,8 @@ const url = 'http://localhost:3000';
 export class PostsService {
   constructor(private http: HttpClient) {}
 
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${url}/posts`);
+  getPosts(options?: { params?: any }): Observable<Post[]> {
+    return this.http.get<Post[]>(`${url}/posts`, options);
   }
 
   createPost(post: Post): Observable<Post> {

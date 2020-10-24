@@ -1,5 +1,8 @@
 <div>
-
+  <form [formGroup]="filterForm" (ngSubmit)="onSearch()" >
+    <input type="text" formControlName="search">
+    <button type="submit"> Buscar post</button>
+  </form>
   <div *ngFor="let post of posts">
     <h1>
       {{post.id}} {{post.title}}

@@ -16,14 +16,24 @@ export class AppComponent {
     title: new FormControl('', [
       Validators.required,
       Validators.minLength(4),
-      Validators.pattern(/\w/)
+      Validators.pattern(/\w/),
     ]),
     author: new FormControl('', []),
+  });
+
+  filterForm: FormGroup = new FormGroup({
+    search: new FormControl(''),
   });
 
   constructor(private postService: PostsService) {
     this.readPosts();
     this.editPost = 0;
+    this.filterForm.statusChanges
+      .subscribe(() => {
+        if (this.filterForm.valid){
+          this.onSearch();
+        }
+      });
   }
 
   private readPosts(): void {
@@ -37,21 +47,31 @@ export class AppComponent {
     if (this.postForm.valid) {
       if (this.editPost) {
         const id = this.editPost;
-        this.postService.updatePost(id, payload)
-          .subscribe(postUpdated => {
-            this.editPost = 0;
-            this.readPosts();
-            this.postForm.reset();
-          });
+        this.postService.updatePost(id, payload).subscribe((postUpdated) => {
+          this.editPost = 0;
+          this.readPosts();
+          this.postForm.reset();
+        });
       } else {
-        this.postService.createPost(payload)
-          .subscribe(respond => {
-            this.readPosts();
+        this.postService.createPost(payload).subscribe((respond) => {
+          this.readPosts();
         });
       }
     } else {
       alert('se requiere campos validos');
     }
+  }
+
+  onSearch(): void {
+    // Pending refactor
+    this.postService.getPosts({
+      params: {
+        q: this.filterForm.value.search
+      }
+    })
+      .subscribe((posts: Post[]) => {
+        this.posts = posts;
+      });
   }
 
   onDelete(id: number): void {
