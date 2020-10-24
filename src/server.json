@@ -3,7 +3,8 @@
     {
       "id": 1,
       "title": "json-server",
-      "author": "typicode"
+      "author": "typicode",
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Post-It.jpg/245px-Post-It.jpg"
     },
     {
       "id": 2,
@@ -26,14 +27,19 @@
       "id": 5
     },
     {
-      "title": "Vue",
-      "author": "Alfredo",
+      "title": "Vue ",
+      "author": "Alejandra",
       "id": 6
     },
     {
-      "title": "Next",
-      "author": "Postulante",
+      "title": "Nest",
+      "author": "Alvaro",
       "id": 7
+    },
+    {
+      "title": "Next",
+      "author": "Luis",
+      "id": 8
     }
   ],
   "comments": [

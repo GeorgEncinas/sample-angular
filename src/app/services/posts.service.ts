@@ -19,6 +19,10 @@ export class PostsService {
     return this.http.post<Post>(`${url}/posts`, post);
   }
 
+  updatePost(id: number, payload: Post): Observable<Post> {
+    return this.http.patch<Post>(`${url}/posts/${id}`, payload);
+  }
+
   deletePost(id: number): Observable<Post> {
     return this.http.delete<Post>(`${url}/posts/${id}`);
   }

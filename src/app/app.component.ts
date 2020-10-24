@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent {
   title = 'AngularProject';
   posts: Post[];
+  editPost: number;
 
   postForm: FormGroup = new FormGroup({
     title: new FormControl('', [
@@ -22,6 +23,7 @@ export class AppComponent {
 
   constructor(private postService: PostsService) {
     this.readPosts();
+    this.editPost = 0;
   }
 
   private readPosts(): void {
@@ -33,26 +35,43 @@ export class AppComponent {
   onSubmit(): void {
     const payload = this.postForm.getRawValue();
     if (this.postForm.valid) {
-      this.postService.createPost(payload)
-        .subscribe(respond => {
-          this.readPosts();
+      if (this.editPost) {
+        const id = this.editPost;
+        this.postService.updatePost(id, payload)
+          .subscribe(postUpdated => {
+            this.editPost = 0;
+            this.readPosts();
+            this.postForm.reset();
+          });
+      } else {
+        this.postService.createPost(payload)
+          .subscribe(respond => {
+            this.readPosts();
         });
+      }
     } else {
       alert('se requiere campos validos');
     }
   }
+
   onDelete(id: number): void {
-    this.postService.deletePost(id)
-      .subscribe(response => {
+    this.postService.deletePost(id).subscribe(
+      (response) => {
         this.readPosts();
         alert('eliminado');
       },
-      error => {
-        if (error.status === 404 ){
-          alert('no existe el post')
+      (error) => {
+        if (error.status === 404) {
+          alert('no existe el post');
         } else {
-          alert('hubo un error al eliminar')
+          alert('hubo un error al eliminar');
         }
-      });
+      }
+    );
+  }
+
+  onEdit(post: Post): void {
+    this.postForm.reset(post);
+    this.editPost = post.id;
   }
 }
